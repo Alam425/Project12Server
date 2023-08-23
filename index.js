@@ -4,6 +4,8 @@ const cors = require('cors');
 require('dotenv').config();
 const port = process.env.PORT || 5000;
 const app = express();
+const classes = require('./classes.json');
+const instructors = require('./instructors.json');
 
 app.use(express.json());
 app.use(cors());
@@ -19,13 +21,18 @@ const client = new MongoClient(uri, {
   }
 });
 
+app.get('/', (req, res) => {
+    res.send("Whatt ......... ????")
+})
+
 async function run() {
   try {
-    const classCollection = client.db("classesCollection").collection("classes");
+    app.get('/classes', (req, res) => {
+        res.send(classes);
+    })
 
-    app.get('/classes', async(req, res) => {
-        const result = classCollection.find().toArray();
-        res.send(result);
+    app.get('/instructors', (req, res) => {
+        res.send(instructors);
     })
 
     console.log("Pinged to MongoDB!");
@@ -33,10 +40,6 @@ async function run() {
   }
 }
 run().catch(console.dir);
-
-app.get('/', async(req, res) => {
-    res.send('App is running on: ', port)
-})
 
 app.listen(port, () => {
     console.log('Server is running on :', port);

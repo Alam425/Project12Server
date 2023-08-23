@@ -1,0 +1,386 @@
+[
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2020/05/arabic-01-scaled.jpg ",
+        "name" : " Diploma in Arabic Language (Level-3) (Self-Paced) ",
+        "instructorName" : " N/A ",
+        "availableSeats" : 157,
+        "price" : 500.00,
+        "category" : " Arabic Language "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2020/05/arabic-01-scaled.jpg ",
+        "name" : " Diploma in Arabic Language (Level-2) (Self-Paced) ",
+        "instructorName" : " N/A ",
+        "availableSeats" : 254,
+        "price" : 500.00,
+        "category" : " Arabic Language "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2020/05/arabic-01-scaled.jpg ",
+        "name" : " Diploma in Arabic Language (Level-1) (Self-Paced) ",
+        "instructorName" : " N/A ",
+        "availableSeats" : 544,
+        "price" : 500.00,
+        "category" : " Arabic Language "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2022/12/basic-islam-01-scaled.jpg ",
+        "name" : " Basic Islam (ফারযুল আইন কোর্স) ",
+        "instructorName" : " Mufti Ilias Khan ",
+        "availableSeats" : 886,
+        "price" : 600.00 ,
+        "category" : " Islamic Belief "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2022/07/feminism-course-01-1.png ",
+        "name" : " Feminism ",
+        "instructorName" : " Dr. Shamsul Arefin ",
+        "availableSeats" : 153,
+        "price" : 510.00 ,
+        "category" : " Islamic Belief "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2022/07/fitan-course-01-scaled.jpg ",
+        "name" : " Fitan & Malahim Course ",
+        "instructorName" : " Sheikh Mizan Harun ",
+        "availableSeats" : 74,
+        "price" : " 000.0",
+        "category" : " Islamic Belief "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2022/03/asma-ul-husna-01-scaled.jpg ",
+        "name" : " Asma-ul-Husna (Female) ",
+        "instructorName" : " Zainab Al-Gazi ",
+        "availableSeats" : 424,
+        "price" : 350.00,
+        "category" : " Islamic Belief "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2021/08/philosophy-01.png ",
+        "name" : " Philosophy : An Islamic Introduction (দর্শন : ইসলামী উপক্রমণিকা) ",
+        "instructorName" : " Md. Shakil Hasan ",
+        "availableSeats" : 307,
+        "price" : 510.00,
+        "category" : " Islamic Belief "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2021/05/islam-and-other-offer-01-scaled.jpg ",
+        "name" : " Islam & Other Isms ",
+        "instructorName" : " Md. Shakil Hasan ",
+        "availableSeats" : 409,
+        "price" : 510.00,
+        "category" : " Islamic Belief "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2020/11/ultimate-truth-01-1.png ",
+        "name" : " Islam : The Ultimate Truth ",
+        "instructorName" : " Md. Shakil Hasan ",
+        "availableSeats" : 279,
+        "price" : 410.00,
+        "category" : " Islamic Belief "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2023/06/Journey-of-motherhood_Mesa-de-trabajo-1.png ",
+        "name" : " Journey of Motherhood (Only for Female) ",
+        "instructorName" : " Dr. Khadiza Tahira ",
+        "availableSeats" : 17,
+        "price" : 510.00,
+        "category" : " Marriage & Family Life "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2022/04/OWINFV-2s-01-e1651068791702.png ",
+        "name" : "  Healthy Marriage Life Bundle (Male)  ",
+        "instructorName" : " N/A ",
+        "availableSeats" : 184,
+        "price" : 780.00,
+        "category" : " Marriage & Family Life "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2022/04/OWINFV-2s-01-e1651068791702.png ",
+        "name" : " Healthy Marriage Life Bundle (Female) ",
+        "instructorName" : " N/A ",
+        "availableSeats" : 251,
+        "price" : 780.00,
+        "category" : " Marriage & Family Life "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2021/06/family-management1-01.png ",
+        "name" : " Family Management in Islam (Female) (তারবিয়াতুল ইসলাম) ",
+        "instructorName" : " Zainab Al-Gazi ",
+        "availableSeats" : 829,
+        "price" : 810.00,
+        "category" : " Marriage & Family Life "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2021/06/FLORAL_FRAME-01-01.png ",
+        "name" : " Fiqhun Niqah ",
+        "instructorName" : " Molla Abdul Mumin ",
+        "availableSeats" : 986,
+        "price" : 510.00,
+        "category" : " Marriage & Family Life "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2021/03/marriage-preparation-01.png ",
+        "name" : " Marriage Preparation (Female) ",
+        "instructorName" : " Dr. Shamsul Arefin ",
+        "availableSeats" : 2037,
+        "price" : 510.00,
+        "category" : " Marriage & Family Life "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2020/10/pre-marriage-course-01-768x512.png ",
+        "name" : " Marriage Preparation (Male) ",
+        "instructorName" : " Dr. Shamsul Arefin ",
+        "availableSeats" : 3183,
+        "price" : 510.00,
+        "category" : " Marriage & Family Life "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2022/03/%E0%A7%AA%E0%A7%A6-%E0%A6%B9%E0%A6%BE%E0%A6%A6%E0%A6%BF%E0%A6%B8-01-scaled.jpg ",
+        "name" : " The Forty Hadith of Imam Nawawi (চল্লিশ হাদিস) (Female) ",
+        "instructorName" : " Zainab Al-Gazi ",
+        "availableSeats" : 241,
+        "price" : 510.00,
+        "category" : " Hadith "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2023/06/mughal-course-01-scaled.jpg ",
+        "name" : " মুঘল সাম্রাজ্যের ইতিহাস ",
+        "instructorName" : " Maulana Sadik Farhan ",
+        "availableSeats" : 13,
+        "price" : 510.00,
+        "category" : " Seerah & History "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2023/01/Screenshot-2023-01-02-at-6.15.39-PM.png ",
+        "name" : " Heroes of Islam ",
+        "instructorName" : " Maulana Ammarul Haque ",
+        "availableSeats" : 167,
+        "price" : 510.00,
+        "category" : " Seerah & History "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2021/12/history-course-01-01-scaled.jpg ",
+        "name" : " History of Islam ",
+        "instructorName" : " Maulana Muhammad Foyez Ullah ",
+        "availableSeats" : 627,
+        "price" : 800.00,
+        "category" : " Seerah & History "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2021/12/seerah-course-01-scaled.jpg ",
+        "name" : " Seerah Course (An insight of the life of Prophet Muhammad ﷺ) ",
+        "instructorName" : " Maulana Ahmadullah Al Jami ",
+        "availableSeats" : 777,
+        "price" : 590.00,
+        "category" : " Seerah & History "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2022/03/tadabbure-quran-scaled.jpg ",
+        "name" : " তাদাব্বুরে কুরআন ",
+        "instructorName" : " Maulana Ahmadullah Al Jami ",
+        "availableSeats" : 1004,
+        "price" : 243.00,
+        "category" : " Quran Recitation & Tajweed "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2020/07/tajweed-male-01.png ",
+        "name" : " সহিহভাবে কুরআন শিক্ষা কোর্স (Male) ",
+        "instructorName" : " N/A ",
+        "availableSeats" : 227,
+        "price" : 3060.00,
+        "category" : " Quran Recitation & Tajweed "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2020/07/tajweed-female-01-768x512.png ",
+        "name" : " সহিহভাবে কুরআন শিক্ষা কোর্স (Male) ",
+        "instructorName" : " N/A ",
+        "availableSeats" : 44,
+        "price" : 3060.00,
+        "category" : " Quran Recitation & Tajweed "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2021/03/islamic-lifestyle2-copy-768x513.jpg ",
+        "name" : " Diploma in Islamic Lifestyle (Female) (Level-1) ",
+        "instructorName" : " N/A ",
+        "availableSeats" : 235,
+        "price" : 7200.00,
+        "category" : " Sunnah & Lifestyle "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2021/03/islamic-lifestyle2-copy-768x513.jpg ",
+        "name" : " Diploma in Islamic Lifestyle (Female) (Level-2) ",
+        "instructorName" : " N/A ",
+        "availableSeats" : 34,
+        "price" : 7200.00,
+        "category" : " Sunnah & Lifestyle "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2021/03/islamic-lifestyle2-copy-768x513.jpg ",
+        "name" : " Diploma in Islamic Lifestyle (Female) (Level-3) ",
+        "instructorName" : " N/A ",
+        "availableSeats" : 55,
+        "price" : 7200.00,
+        "category" : " Sunnah & Lifestyle "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2021/03/islamic-lifestyle2-copy-768x513.jpg ",
+        "name" : " Diploma in Islamic Lifestyle (Female) (Level-4) ",
+        "instructorName" : " N/A ",
+        "availableSeats" : 43,
+        "price" : 7200.00, 
+        "category" : " Sunnah & Lifestyle "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2021/01/%E0%A6%B0%E0%A7%81%E0%A6%95%E0%A6%87%E0%A6%AF%E0%A6%BC%E0%A6%BE%E0%A6%B9-%E0%A6%95%E0%A7%8B%E0%A6%B0%E0%A7%8D%E0%A6%B8-banner-01.png ",
+        "name" : " রুকইয়াহ কোর্স (The Science of Prophetic Healing) ",
+        "instructorName" : " Hafiz Al Munadi ",
+        "availableSeats" : 2771,
+        "price" : 510.00,
+        "category" : " Sunnah & Lifestyle "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2023/06/Fiqh-Of-Halal-Food-03-01-01-scaled.jpg ",
+        "name" : " ফিকহ অফ হালাল ফুড ",
+        "instructorName" : " Mufti Ziaur Rahman ",
+        "availableSeats" : 26,
+        "price" : 410.00,
+        "category" : " Fiqh "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2023/01/fiqh-of-menstruation-01-768x438.png ",
+        "name" : " Fiqh of Menstruation (Only for Female) ",
+        "instructorName" : " Mufti Ilias Khan ",
+        "availableSeats" : 161,
+        "price" : 510.00,
+        "category" : " Fiqh "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2023/01/fiqhut-talaq-01-768x519.png ",
+        "name" : " ফিকহুত তালাক ",
+        "instructorName" : " Molla Abdul Mumin ",
+        "availableSeats" :  55,       
+        "price" : " 450.00 ",
+        "category" : " Fiqh "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2022/12/sajsojja-islam-768x512.png ",
+        "name" : " নারীর সাজসজ্জা ও ইসলাম ",
+        "instructorName" : " Mufti Ilias Khan ",
+        "availableSeats" : 166,
+        "price" : 510.00,
+        "category" : " Fiqh "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2022/03/fiqus-salah-01-01-01-768x512.jpg ",
+        "name" : " Fiqhus Salat ",
+        "instructorName" : " Molla Abdul Mumin ",
+        "availableSeats" : 340,
+        "price" : 510.00,
+        "category" : " Fiqh "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2022/03/siyam-01-01-01-768x512.jpg ",
+        "name" : " Fiqhus Siam ",
+        "instructorName" : " Mufti Ilias Khan ",
+        "availableSeats" : 83,
+        "price" : 510.00,
+        "category" : " Fiqh "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2021/06/qurbani-course-n-01-768x484.png ",
+        "name" : " কুরবানী (ইতিহাস, ফাযায়িল ও মাসায়িল) ",
+        "instructorName" : " Mufti Ilias Khan ",
+        "availableSeats" : 55,
+        "price" : 510.00,
+        "category" : " Fiqh "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2021/06/FLORAL_FRAME-01-01-768x512.png ",
+        "name" : " Fiqhun Niqah ",
+        "instructorName" : " Molla Abdul Mumin ",
+        "availableSeats" : 976,
+        "price" : 510.00,
+        "category" : " Fiqh "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2023/01/p-addiction-course-02-768x486.png ",
+        "name" : " Recovery from Porn Addiction ",
+        "instructorName" : " Sadik Hossain Minhaz ",
+        "availableSeats" : 201,
+        "price" : 510.00,
+        "category" : " Manners & Etiquette "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2021/06/family-management1-01-768x432.png ",
+        "name" : " Family Management in Islam (Female) (তারবিয়াতুল ইসলাম) ",
+        "instructorName" : " Zainab Al-Gazi ",
+        "availableSeats" : 829,
+        "price" : 810.00,
+        "category" : " Manners & Etiquette "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2021/01/husnul-khuluk-01-768x428.png ",
+        "name" : " হুসনুল খুলুক (Islamic Manners) (Female) ",
+        "instructorName" : " Zainab Al-Gazi ",
+        "availableSeats" : 1614,
+        "price" : 950.00,
+        "category" : " Manners & Etiquette "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2021/03/time-management-course-01-768x534.jpg ",
+        "name" : " Time Management ",
+        "instructorName" : " Md. Sazzad Hossain Rakib ",
+        "availableSeats" : 1004,
+        "price" : 490.00,
+        "category" : " Productivity & Life Hacks "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2021/02/productive-ramadan-course-01-768x512.jpg ",
+        "name" : " Productive Ramadan ",
+        "instructorName" : " Muwahhid Abu Abdullah ",
+        "availableSeats" : 2515,
+        "price" : 510.00,
+        "category" : " Productivity & Life Hacks "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2020/11/art-of-reading-01-768x513.jpg ",
+        "name" : " The Art of Reading ",
+        "instructorName" : " Md. Shakil Hasan ",
+        "availableSeats" : 887,
+        "price" : 410.00,
+        "category" : " Productivity & Life Hacks "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2022/04/OWINFV-2s-01-e1651068791702-768x582.png ",
+        "name" : " Healthy Marriage Life Bundle (Male) ",
+        "instructorName" : " N/A ",
+        "availableSeats" : 251,
+        "price" : 780.00,
+        "category" : " Bundle Courses "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2022/04/OWINFV-2s-01-e1651068791702-768x582.png ",
+        "name" : " Healthy Marriage Life Bundle (Female) ",
+        "instructorName" : " N/A ",
+        "availableSeats" : 184,
+        "price" : 780.00,
+        "category" : " Bundle Courses "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2022/04/-%E0%A6%85%E0%A6%AB%E0%A6%BE%E0%A6%B0-03-01-scaled-e1650880482590-768x518.jpg ",
+        "name" : " Course Bundle by Ustaz Shakil Hasan ",
+        "instructorName" : " Md. Shakil Hasan ",
+        "availableSeats" : 65,
+        "price" : 1020.00,
+        "category" : " Bundle Courses "  
+    },
+    {
+        "image" : " https://aslafacademy.com/wp-content/uploads/2020/06/104096712_1345542445653621_5567115076371483573_o-768x541.png ",
+        "name" : " Islamic Homeschooling for Kids ",
+        "instructorName" : " N/A ",
+        "availableSeats" : 2,
+        "price" : 7200.0,
+        "category" : " Homeschooling & Parenting "  
+    }
+]
