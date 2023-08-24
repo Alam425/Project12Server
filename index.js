@@ -4,8 +4,6 @@ const cors = require('cors');
 require('dotenv').config();
 const port = process.env.PORT || 5000;
 const app = express();
-const classes = require('./classes.json');
-const instructors = require('./instructors.json');
 
 app.use(express.json());
 app.use(cors());
@@ -27,12 +25,17 @@ app.get('/', (req, res) => {
 
 async function run() {
   try {
-    app.get('/classes', (req, res) => {
-        res.send(classes);
+    const classesCollection = client.db("classesCollection").collection('classes');
+    const instructorsCollection = client.db("classesCollection").collection('instructors');
+    
+    app.get('/class', async(req, res) => {
+      const result = await classesCollection.find().toArray();
+      res.send(result);
     })
-
-    app.get('/instructors', (req, res) => {
-        res.send(instructors);
+    
+    app.get('/instructor', async(req, res) => {
+      const result = await instructorsCollection.find().toArray();
+      res.send(result);
     })
 
     console.log("Pinged to MongoDB!");
