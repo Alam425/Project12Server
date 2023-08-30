@@ -2,6 +2,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+const classes = require('./classes.json');
 const port = process.env.PORT || 5000;
 const app = express();
 
@@ -9,7 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 const uri = `mongodb+srv://${process.env.USE}:${process.env.PASWD}@cluster0.suexuc8.mongodb.net/?retryWrites=true&w=majority`;
-
+console.log(process.env.USE);
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
@@ -31,6 +32,12 @@ async function run() {
     app.get('/class', async(req, res) => {
       const result = await classesCollection.find().toArray();
       res.send(result);
+    })
+    
+    app.get('/class/:_id', async(req, res) => {
+      const id = req.params._id;
+      const selectedCourse = classes.filter(n => n._id === id);
+      res.send(selectedCourse);
     })
     
     app.get('/instructor', async(req, res) => {
