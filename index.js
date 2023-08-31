@@ -1,4 +1,4 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 const uri = `mongodb+srv://${process.env.USE}:${process.env.PASWD}@cluster0.suexuc8.mongodb.net/?retryWrites=true&w=majority`;
-console.log(process.env.USE);
+
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
@@ -28,21 +28,34 @@ async function run() {
   try {
     const classesCollection = client.db("classesCollection").collection('classes');
     const instructorsCollection = client.db("classesCollection").collection('instructors');
+    const specialitiesCollection = client.db("classesCollection").collection('specialities');
+    const reviewsCollection = client.db("classesCollection").collection('reviews');
     
     app.get('/class', async(req, res) => {
       const result = await classesCollection.find().toArray();
       res.send(result);
     })
     
-    app.get('/class/:_id', async(req, res) => {
-      const id = req.params._id;
-      const selectedCourse = classes.filter(n => n._id === id);
-      res.send(selectedCourse);
+    app.get('/specialities', async(req, res) => {
+      const result = await specialitiesCollection.find().toArray();
+      res.send(result);
+    })
+    
+    app.get('/reviews', async(req, res) => {
+      const result = await reviewsCollection.find().toArray();
+      res.send(result);
     })
     
     app.get('/instructor', async(req, res) => {
       const result = await instructorsCollection.find().toArray();
       res.send(result);
+    })
+    
+    app.get('/class/:_id', async(req, res) => {
+      const id = req.params._id;
+      const query = { _id: new ObjectId(id) };
+      const selectedCourse = await classesCollection.findOne(query);
+      res.send(selectedCourse);
     })
 
     console.log("Pinged to MongoDB!");
