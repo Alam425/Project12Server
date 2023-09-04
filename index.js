@@ -57,6 +57,13 @@ async function run() {
       const selectedCourse = await classesCollection.findOne(query);
       res.send(selectedCourse);
     })
+    
+    app.get('/tutor/:_id', async(req, res) => {
+      const id = req.params._id;
+      const query = { _id: new ObjectId(id) };
+      const selectedCourse = await instructorsCollection.findOne(query);
+      res.send(selectedCourse);
+    })
 
     console.log("Pinged to MongoDB!");
   } finally {
