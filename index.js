@@ -21,7 +21,7 @@ const client = new MongoClient(uri, {
 });
 
 app.get('/', (req, res) => {
-    res.send("Whatt ......... ????")
+  res.send("Whatt ......... ????")
 })
 
 async function run() {
@@ -30,39 +30,59 @@ async function run() {
     const instructorsCollection = client.db("classesCollection").collection('instructors');
     const specialitiesCollection = client.db("classesCollection").collection('specialities');
     const reviewsCollection = client.db("classesCollection").collection('reviews');
-    
-    app.get('/class', async(req, res) => {
+    const cartCollection = client.db("classesCollection").collection('cart');
+
+    app.get('/class', async (req, res) => {
       const result = await classesCollection.find().toArray();
       res.send(result);
     })
-    
-    app.get('/specialities', async(req, res) => {
+
+    app.get('/specialities', async (req, res) => {
       const result = await specialitiesCollection.find().toArray();
       res.send(result);
     })
-    
-    app.get('/reviews', async(req, res) => {
+
+    app.get('/reviews', async (req, res) => {
       const result = await reviewsCollection.find().toArray();
       res.send(result);
     })
-    
-    app.get('/instructor', async(req, res) => {
+
+    app.get('/instructor', async (req, res) => {
       const result = await instructorsCollection.find().toArray();
       res.send(result);
     })
-    
-    app.get('/class/:_id', async(req, res) => {
+
+    app.get('/class/:_id', async (req, res) => {
       const id = req.params._id;
       const query = { _id: new ObjectId(id) };
       const selectedCourse = await classesCollection.findOne(query);
       res.send(selectedCourse);
     })
-    
-    app.get('/tutor/:_id', async(req, res) => {
+
+    app.get('/tutor/:_id', async (req, res) => {
       const id = req.params._id;
       const query = { _id: new ObjectId(id) };
       const selectedCourse = await instructorsCollection.findOne(query);
       res.send(selectedCourse);
+    })
+
+    app.get('/cart', async (req, res) => {
+      const result = await cartCollection.find().toArray();
+      res.send(result);
+    })
+
+    app.post('/cart', async (req, res) => {
+      const body = req.body;
+      const query = { body };
+      const cartItem = await cartCollection.find(query);
+      console.log(cartItem);
+
+      // if (cartItem) {
+      //   return res.status(400).json({ error: 'Item already exists in the cart' });
+      // }
+
+      // const result = await cartCollection.insertOne(body);
+      // res.send(result);
     })
 
     console.log("Pinged to MongoDB!");
@@ -72,5 +92,5 @@ async function run() {
 run().catch(console.dir);
 
 app.listen(port, () => {
-    console.log('Server is running on :', port);
+  console.log('Server is running on :', port);
 })
