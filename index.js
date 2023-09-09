@@ -73,9 +73,12 @@ async function run() {
 
     app.post('/cart', async (req, res) => {
       const body = req.body;
-      const query = { body };
-      const cartItem = await cartCollection.find(query);
-      console.log(cartItem);
+      const id = body?.item?._id;
+      const query = { _id: new ObjectId(id) };
+      const query1 = { _id: id };
+      const cartItem = await cartCollection.findOne(query);
+      const cartItem1 = await cartCollection.findOne(query1);
+      console.log(cartItem, cartItem1);
 
       // if (cartItem) {
       //   return res.status(400).json({ error: 'Item already exists in the cart' });
