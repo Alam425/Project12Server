@@ -34,6 +34,7 @@ async function run() {
     const specialitiesCollection = client.db("classesCollection").collection('specialities');
     const reviewsCollection = client.db("classesCollection").collection('reviews');
     const cartCollection = client.db("classesCollection").collection('cart');
+    const usersCollection = client.db("classesCollection").collection('users');
 
     app.get('/class', async (req, res) => {
       const result = await classesCollection.find().toArray();
@@ -74,6 +75,11 @@ async function run() {
       res.send(result);
     })
 
+    app.get('/users', async(req, res) => {
+      const result = await usersCollection.find().toArray();
+      res.send(result);
+    })
+
     app.post('/cart', async (req, res) => {
       const body = req.body;
       const id = body?.item?._id;
@@ -87,7 +93,13 @@ async function run() {
       //   return res.status(400).json({ error: 'Item already exists in the cart' });
       // }
 
-      const result = await cartCollection.insertOne(body);
+      // const result = await cartCollection.insertOne(body);
+      // res.send(result);
+    })
+
+    app.post('/users', async(req, res) => {
+      const body = req?.body?.user;
+      const result = await usersCollection.insertOne(body);
       res.send(result);
     })
 
