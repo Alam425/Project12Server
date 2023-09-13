@@ -8,6 +8,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+// app.use(cors());
 
 const uri = `mongodb+srv://${process.env.USE}:${process.env.PASWD}@cluster0.suexuc8.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -73,16 +74,15 @@ async function run() {
 
     app.post('/cart', async (req, res) => {
       const body = req.body;
-      const query = { body };
-      const cartItem = await cartCollection.find(query);
-      console.log(cartItem);
+      
+      const cartItem = await cartCollection.find();
 
       // if (cartItem) {
       //   return res.status(400).json({ error: 'Item already exists in the cart' });
       // }
 
-      // const result = await cartCollection.insertOne(body);
-      // res.send(result);
+      const result = await cartCollection.insertOne(body);
+      res.send(result);
     })
 
     console.log("Pinged to MongoDB!");
