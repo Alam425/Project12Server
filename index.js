@@ -10,6 +10,8 @@ app.use(express.json());
 app.use(cors());
 // app.use(cors());
 
+// emner"?
+
 const uri = `mongodb+srv://${process.env.USE}:${process.env.PASWD}@cluster0.suexuc8.mongodb.net/?retryWrites=true&w=majority`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -74,8 +76,12 @@ async function run() {
 
     app.post('/cart', async (req, res) => {
       const body = req.body;
-      
-      const cartItem = await cartCollection.find();
+      const id = body?.item?._id;
+      const query = { _id: new ObjectId(id) };
+      const query1 = { _id: id };
+      const cartItem = await cartCollection.findOne(query);
+      const cartItem1 = await cartCollection.findOne(query1);
+      console.log(cartItem, cartItem1);
 
       // if (cartItem) {
       //   return res.status(400).json({ error: 'Item already exists in the cart' });
