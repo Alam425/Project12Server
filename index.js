@@ -80,26 +80,24 @@ async function run() {
     })
 
     app.post('/cart', async (req, res) => {
-      const body = req.body;
-      const id = body?.item?._id;
-      const query = { _id: new ObjectId(id) };
-      const query1 = { _id: id };
-      const cartItem = await cartCollection.findOne(query);
-      const cartItem1 = await cartCollection.findOne(query1);
-      console.log(cartItem, cartItem1);
-
-      // if (cartItem) {
-      //   return res.status(400).json({ error: 'Item already exists in the cart' });
-      // }
-
-      // const result = await cartCollection.insertOne(body);
-      // res.send(result);
+      const body = req.body.item;
+      const productId = body._id;
+      const cartItem = await cartCollection.findOne({ productId });
+      
+      if (cartItem) {
+        return res.send({ error: 'Item already exists in the cart' });
+      }
+      
+      // console.log(cartItem, cartItem1);
+      const result = await cartCollection.insertOne({...body, productId});
+      res.send(result);
     })
 
     app.post('/users', async(req, res) => {
-      const body = req?.body?.user;
+      const body = req?.body?.user?.providerData[0];
+      console.log(body);
       const result = await usersCollection.insertOne(body);
-      res.send(result);
+      res.send (result);
     })
 
     console.log("Pinged to MongoDB!");
