@@ -4,6 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 const port = process.env.PORT || 5000;
 const app = express();
+const stripe = require('stripe')('sk_test_51NXvYsKGf3MJO6wVvM5gqDtLJdRtJTLgBuVI6PtIJ6IjD8fgsvI88uwCmXWdLEnBavBmiKVFsmQm0k4nQRv8TYkz00RspGzlZP');
 
 app.use(express.json());
 app.use(cors());
@@ -35,6 +36,7 @@ async function run() {
     const reviewsCollection = client.db("classesCollection").collection('reviews');
     const cartCollection = client.db("classesCollection").collection('cart');
     const usersCollection = client.db("classesCollection").collection('users');
+    const paymentCollection = client.db("classesCollection").collection('payment');
 
 
     app.get('/specialities', async (req, res) => {
@@ -191,6 +193,41 @@ async function run() {
         res.status(500).send({ acknowledged: false, error: "An error occurred" });
       }
     })
+
+
+
+
+    // ----------------------------------------------------------------------------------
+    // -----------------------------------payment----------------------------------------
+    // ----------------------------------------------------------------------------------
+
+    app.post('/intentToPayment', async(req, res)=>{
+      const { price } = req.body;
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: price*100,
+        currency: "usd",
+        payment_method_types: ["card"]        
+      })
+      res.send({
+        clientSecret : paymentIntent.client_secret
+      })
+    })
+
+    app.post('/payments', async(req, res)=>{
+      const payment = req.body;
+      const result = await paymentCollection.insertOne(payment);
+
+      const query = { _id: { $in: payment.items.map(item => item) }};
+      const deleteItem = await cartCollection.deleteMany(query);
+
+      res.send({result, deleteItem});
+    })
+    app.get('/payments', async(req, res)=>{
+      const result = await paymentCollection.find().toArray();
+      res.send(result);
+    })
+
+
 
 
     console.log("Pinged to MongoDB!");
