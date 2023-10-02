@@ -35,6 +35,7 @@ async function run() {
     const specialitiesCollection = client.db("classesCollection").collection('specialities');
     const reviewsCollection = client.db("classesCollection").collection('reviews');
     const cartCollection = client.db("classesCollection").collection('cart');
+    const coursesCollection = client.db("classesCollection").collection('courses');
     const usersCollection = client.db("classesCollection").collection('users');
     const paymentCollection = client.db("classesCollection").collection('payment');
 
@@ -55,7 +56,6 @@ async function run() {
       const result = await instructorsCollection.find().toArray();
       res.send(result);
     })
-
 
 
 
@@ -84,6 +84,21 @@ async function run() {
       res.send(selectedCourse);
     })
 
+
+    app.put("/class/availableSeats/:id", async(req, res) =>{
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const findTheItem = await classesCollection.findOne(query);
+
+      if (!findTheItem) {
+        return res.status(404).json({ error: 'Item not found' });
+      }
+
+      findTheItem.availableSeats -= 1;
+
+      const result = await classesCollection.updateOne(query, { $set: findTheItem });
+      res.send(result);      
+    })
 
 
 
@@ -222,6 +237,7 @@ async function run() {
       })
     })
 
+
     app.post('/payments', async(req, res)=>{
       const payment = req.body;
       const result = await paymentCollection.insertOne(payment);
@@ -231,8 +247,26 @@ async function run() {
 
       res.send({result, deleteItem});
     })
+
+
     app.get('/payments', async(req, res)=>{
       const result = await paymentCollection.find().toArray();
+      res.send(result);
+    })
+
+    
+
+    // -------------------------------------------------------------------------------------
+    // ---------------------------------------Courses---------------------------------------
+    // -------------------------------------------------------------------------------------
+
+    app.post('/courses', async(req, res) => {
+      const result = await coursesCollection.insertOne(req.body.item);
+      res.send(result);
+    })
+
+    app.get('/courses', async(req, res) => {
+      const result = await coursesCollection.find().toArray();
       res.send(result);
     })
 
