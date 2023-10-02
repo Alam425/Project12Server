@@ -157,16 +157,25 @@ async function run() {
     app.patch('/users/:userId', async (req, res) => {
       const userId = req.params.userId;
       const query = { _id: new ObjectId(userId) };
-      const updated = { $set: { role: "admin" } };
+      const updated = { $set: { phoneNumber: "admin" } };
       const result = await usersCollection.updateOne(query, updated);
       res.send(result);
     });
 
 
-    app.patch('/users/now/:id', async (req, res) => {
+    app.patch('/users/instructor/:id', async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
-      const updated = { $unset: { role: "admin" } };
+      const updated = { $set: { phoneNumber: "instructor" } };
+      const result = await usersCollection.updateOne(query, updated);
+      res.send(result);
+    });
+
+
+    app.patch('/users/student/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const updated = { $set: { phoneNumber: null } };
       const result = await usersCollection.updateOne(query, updated);
       res.send(result);
     });
