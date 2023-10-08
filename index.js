@@ -30,6 +30,7 @@ app.get('/', (req, res) => {
 
 async function run() {
   try {
+    
     const classesCollection = client.db("classesCollection").collection('classes');
     const instructorsCollection = client.db("classesCollection").collection('instructors');
     const specialitiesCollection = client.db("classesCollection").collection('specialities');
@@ -106,6 +107,13 @@ async function run() {
     // -------------------------cart---------------------------------
     // --------------------------------------------------------------
 
+    app.get('/cart/:userEmail', async (req, res) => {
+      const userEmail = req.params.userEmail;
+      const query = { userEmail : userEmail };
+      const result = await cartCollection.find(query).toArray();
+      res.send(result);console.log(query);
+    })
+
     app.get('/cart', async (req, res) => {
       const result = await cartCollection.find().toArray();
       res.send(result);
@@ -128,24 +136,26 @@ async function run() {
       }
 
       catch (error) {
-        console.error(error);
-        res.status(500).send({ acknowledged: false, error: "An error occurred" });
+        res.status(500).send({ acknowledged: false, error: error.message });
       }
     })
 
 
-    app.post('/cart', async (req, res) => {
-      const body = req.body.item;
-      const productId = body._id;
-      const cartItem = await cartCollection.findOne({ productId });
+    app.post('/cart/:userEmail', async (req, res) => {
+      const userEmail = req.params.userEmail;
+      const body = req.body;
+      const productId = body?.ite?._id;
+      
+      const cartItem = await cartCollection.findOne({ userEmail, productId });
 
       if (cartItem) {
-        return res.send({ error: 'Item already exists in the cart' });
+        return res.send({ error: 'Your desired course already exists in the cart' });
       }
 
-      const result = await cartCollection.insertOne({ ...body, productId });
+      const result = await cartCollection.insertOne({ ...body, userEmail, productId });
       res.send(result);
     })
+    
 
 
 
@@ -242,8 +252,10 @@ async function run() {
       const payment = req.body;
       const result = await paymentCollection.insertOne(payment);
 
+      // ---------------------------delete from cart---------------------------
       const query = { _id: { $in: payment.items.map(item => item) }};
       const deleteItem = await cartCollection.deleteMany(query);
+      // ----------------------------------------------------------------------
 
       res.send({result, deleteItem});
     })
@@ -261,7 +273,7 @@ async function run() {
     // -------------------------------------------------------------------------------------
 
     app.post('/courses', async(req, res) => {
-      const result = await coursesCollection.insertOne(req.body.item);
+      const result = await coursesCollection.insertOne(req.body);
       res.send(result);
     })
 
