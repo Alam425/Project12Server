@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 
 async function run() {
   try {
-    
+
     const classesCollection = client.db("classesCollection").collection('classes');
     const instructorsCollection = client.db("classesCollection").collection('instructors');
     const specialitiesCollection = client.db("classesCollection").collection('specialities');
@@ -86,7 +86,7 @@ async function run() {
     })
 
 
-    app.put("/class/availableSeats/:id", async(req, res) =>{
+    app.put("/class/availableSeats/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const findTheItem = await classesCollection.findOne(query);
@@ -98,7 +98,23 @@ async function run() {
       findTheItem.availableSeats -= 1;
 
       const result = await classesCollection.updateOne(query, { $set: findTheItem });
-      res.send(result);      
+      res.send(result);
+    })
+
+
+    app.put("/class/availableSeatsIncrease/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const findTheItem = await classesCollection.findOne(query);
+
+      if (!findTheItem) {
+        return res.status(404).json({ error: 'Item not found' });
+      }
+
+      findTheItem.availableSeats += 1;
+
+      const result = await classesCollection.updateOne(query, { $set: findTheItem });
+      res.send(result);
     })
 
 
@@ -109,11 +125,12 @@ async function run() {
 
     app.get('/cart/:email', async (req, res) => {
       const email = req.params.email;
-      const query = { userEmail : email };
+      const query = { userEmail: email };
       console.log("query", query, "email", email);
       const result = await cartCollection.find(query).toArray();
       res.send(result);
     })
+
 
     app.get('/cart', async (req, res) => {
       const result = await cartCollection.find().toArray();
@@ -124,13 +141,13 @@ async function run() {
     app.delete('/cart/:id', async (req, res) => {
       try {
         const id = req.params.id;
-        const query = { _id: id };
+        const query = { productId: id };
+        console.log(query);
         const result = await cartCollection.deleteOne(query);
 
         if (result.deletedCount === 1) {
           res.send({ acknowledged: true, deletedCount: 1 });
         }
-
         else {
           res.status(404).send({ acknowledged: false, message: "Error occurred" });
         }
@@ -146,7 +163,7 @@ async function run() {
       const userEmail = req.params.userEmail;
       const body = req.body;
       const productId = body?.ite?._id;
-      
+
       const cartItem = await cartCollection.findOne({ userEmail, productId });
 
       if (cartItem) {
@@ -156,7 +173,7 @@ async function run() {
       const result = await cartCollection.insertOne({ ...body, userEmail, productId });
       res.send(result);
     })
-    
+
 
 
 
@@ -217,7 +234,7 @@ async function run() {
         if (user.deletedCount === 1) {
           res.send({ acknowledged: true, deletedCount: 1 });
         }
-        
+
         else {
           res.status(404).send({ acknowledged: false, message: "User not found" });
         }
@@ -236,32 +253,32 @@ async function run() {
     // -----------------------------------payment----------------------------------------
     // ----------------------------------------------------------------------------------
 
-    app.post('/intentToPayment', async(req, res)=>{
+    app.post('/intentToPayment', async (req, res) => {
       const { price } = req.body;
       const paymentIntent = await stripe.paymentIntents.create({
-        amount: price*100,
+        amount: price * 100,
         currency: "usd",
-        payment_method_types: ["card"]        
+        payment_method_types: ["card"]
       })
       res.send({
-        clientSecret : paymentIntent.client_secret
+        clientSecret: paymentIntent.client_secret
       })
     })
 
 
-    app.post('/payments', async(req, res)=>{
+    app.post('/payments', async (req, res) => {
       const payment = req.body;
       const result = await paymentCollection.insertOne(payment);
 
       // ---------------------------delete from cart---------------------------
-      const query = { _id: { $in: payment.items.map(item => item) }};
+      const query = { _id: new ObjectId(payment?.item?._id) };
       console.log(query);
-      const deleteItem = await cartCollection.deleteMany(query);
+      const deleteItem = await cartCollection.deleteOne(query);
       // ----------------------------------------------------------------------
 
-      if(deleteItem.deletedCount === 1){
-        res.send({result, deleteItem});
+      if (deleteItem.deletedCount > 0) {
         console.log(deleteItem);
+        res.send({ result, deleteItem });
       }
       else {
         res.send({ acknowledged: false, message: "Error occurred" });
@@ -269,26 +286,27 @@ async function run() {
     })
 
 
-    app.get('/payments', async(req, res)=>{
+    app.get('/payments', async (req, res) => {
       const result = await paymentCollection.find().toArray();
       res.send(result);
     })
 
-    
+
 
     // -------------------------------------------------------------------------------------
     // ---------------------------------------Courses---------------------------------------
     // -------------------------------------------------------------------------------------
 
-    app.post('/courses', async(req, res) => {
+    app.post('/courses', async (req, res) => {
       const result = await coursesCollection.insertOne(req.body);
       res.send(result);
     })
 
-    app.get('/courses', async(req, res) => {
+    app.get('/courses', async (req, res) => {
       const result = await coursesCollection.find().toArray();
       res.send(result);
     })
+
 
 
 
