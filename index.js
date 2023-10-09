@@ -107,11 +107,12 @@ async function run() {
     // -------------------------cart---------------------------------
     // --------------------------------------------------------------
 
-    app.get('/cart/:userEmail', async (req, res) => {
-      const userEmail = req.params.userEmail;
-      const query = { userEmail : userEmail };
+    app.get('/cart/:email', async (req, res) => {
+      const email = req.params.email;
+      const query = { userEmail : email };
+      console.log("query", query, "email", email);
       const result = await cartCollection.find(query).toArray();
-      res.send(result);console.log(query);
+      res.send(result);
     })
 
     app.get('/cart', async (req, res) => {
@@ -254,10 +255,17 @@ async function run() {
 
       // ---------------------------delete from cart---------------------------
       const query = { _id: { $in: payment.items.map(item => item) }};
+      console.log(query);
       const deleteItem = await cartCollection.deleteMany(query);
       // ----------------------------------------------------------------------
 
-      res.send({result, deleteItem});
+      if(deleteItem.deletedCount === 1){
+        res.send({result, deleteItem});
+        console.log(deleteItem);
+      }
+      else {
+        res.send({ acknowledged: false, message: "Error occurred" });
+      }
     })
 
 
