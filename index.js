@@ -118,6 +118,31 @@ async function run() {
     })
 
 
+    app.post('/class', async (req, res) => {
+
+      const body = req.body;
+      
+      if (body && typeof body === 'object') {
+        body.availableSeats = parseFloat(body.availableSeats);
+        body.price = parseFloat(body.price);    
+        const result = await classesCollection.insertOne(body);
+        res.send(result);
+      } 
+      else {
+        res.status(400).send({ error: 'Invalid request structure' });
+      }
+    })
+
+
+    app.patch('/cart/:iid', async (req, res) => {
+      const id = req.params.iid;
+      const query = { _id: new ObjectId(id) };
+      const updated = { $unset: { status: "pending" } };
+      const result = await classesCollection.updateOne(query, updated);
+      res.send(result);
+    });
+
+    
 
     // --------------------------------------------------------------
     // -------------------------cart---------------------------------
