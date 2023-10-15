@@ -39,6 +39,7 @@ async function run() {
     const coursesCollection = client.db("classesCollection").collection('courses');
     const usersCollection = client.db("classesCollection").collection('users');
     const paymentCollection = client.db("classesCollection").collection('payment');
+    const studentCollection = client.db("classesCollection").collection('student');
 
 
     app.get('/specialities', async (req, res) => {
@@ -60,12 +61,13 @@ async function run() {
 
 
 
+
     // --------------------------------------------------------------
     // -------------------------class--------------------------------
     // --------------------------------------------------------------
 
     app.get('/class', async (req, res) => {
-      const result = await classesCollection.find().toArray();
+      const result = await classesCollection.find().sort({ name : 1 }).toArray();
       res.send(result);
     })
 
@@ -83,6 +85,14 @@ async function run() {
       const query = { _id: new ObjectId(id) };
       const selectedCourse = await instructorsCollection.findOne(query);
       res.send(selectedCourse);
+    })
+
+
+    app.get('/myClass/:email', async(req, res)=>{
+      const email = req.params.email;
+      const query = { instructorEmail : email };
+      const result = await classesCollection.find(query).toArray();
+      res.send(result);
     })
 
 
@@ -114,6 +124,15 @@ async function run() {
       findTheItem.availableSeats += 1;
 
       const result = await classesCollection.updateOne(query, { $set: findTheItem });
+
+      res.send(result);
+    })
+
+
+    app.delete('/class/:id', async(req, res) => {
+      const id = req.params.id ;
+      const query = { _id : new ObjectId(id) };
+      const result = await classesCollection.deleteOne(query);
       res.send(result);
     })
 
@@ -121,37 +140,57 @@ async function run() {
     app.post('/class', async (req, res) => {
 
       const body = req.body;
-      
+
       if (body && typeof body === 'object') {
         body.availableSeats = parseFloat(body.availableSeats);
-        body.price = parseFloat(body.price);    
+        body.price = parseFloat(body.price);
         const result = await classesCollection.insertOne(body);
         res.send(result);
-      } 
+      }
+
       else {
         res.status(400).send({ error: 'Invalid request structure' });
       }
     })
 
 
-    app.patch('/cart/:iid', async (req, res) => {
+    app.patch('/class/:iid', async (req, res) => {
       const id = req.params.iid;
       const query = { _id: new ObjectId(id) };
-      const updated = { $unset: { status: "pending" } };
+      const updated = { $set: { status: "approved" } };
       const result = await classesCollection.updateOne(query, updated);
       res.send(result);
     });
 
-    
+
+    app.put('/class/:id', async (req, res) => {
+      const id = req.params.id;
+      const feed = req.body?.hi?.feedback;
+      const query = { _id: new ObjectId(id) };
+      const found = await classesCollection.findOne(query);
+
+      const update = { $set: { status: "denied", feedback : feed } };
+      
+      const result = await classesCollection.updateOne(query, update);
+
+      if (result.modifiedCount === 1) {
+        res.status(200).json({ message: 'Document updated successfully' });
+      } else {
+        res.status(404).json({ message: 'Document not found or not updated' });
+      }
+    })
+
+
+
 
     // --------------------------------------------------------------
     // -------------------------cart---------------------------------
     // --------------------------------------------------------------
 
+
     app.get('/cart/:email', async (req, res) => {
       const email = req.params.email;
       const query = { userEmail: email };
-      console.log("query", query, "email", email);
       const result = await cartCollection.find(query).toArray();
       res.send(result);
     })
@@ -167,7 +206,7 @@ async function run() {
       try {
         const id = req.params.id;
         const query = { productId: id };
-        console.log(query);
+
         const result = await cartCollection.deleteOne(query);
 
         if (result.deletedCount === 1) {
@@ -198,7 +237,6 @@ async function run() {
       const result = await cartCollection.insertOne({ ...body, userEmail, productId });
       res.send(result);
     })
-
 
 
 
@@ -254,12 +292,10 @@ async function run() {
         const id = req.params.id;
         const query = { _id: new ObjectId(id) };
         const user = await usersCollection.deleteOne(query);
-        console.log(id);
 
         if (user.deletedCount === 1) {
           res.send({ acknowledged: true, deletedCount: 1 });
         }
-
         else {
           res.status(404).send({ acknowledged: false, message: "User not found" });
         }
@@ -277,6 +313,7 @@ async function run() {
     // ----------------------------------------------------------------------------------
     // -----------------------------------payment----------------------------------------
     // ----------------------------------------------------------------------------------
+
 
     app.post('/intentToPayment', async (req, res) => {
       const { price } = req.body;
@@ -297,12 +334,10 @@ async function run() {
 
       // ---------------------------delete from cart---------------------------
       const query = { _id: new ObjectId(payment?.item?._id) };
-      console.log(query);
       const deleteItem = await cartCollection.deleteOne(query);
       // ----------------------------------------------------------------------
 
       if (deleteItem.deletedCount > 0) {
-        console.log(deleteItem);
         res.send({ result, deleteItem });
       }
       else {
@@ -317,15 +352,26 @@ async function run() {
     })
 
 
+    app.get('/payments/:userEmail', async (req, res) => {
+      const userEmail = req.params.userEmail;
+      const query = { email: userEmail };
+      const result = await paymentCollection.find(query).sort({ date: -1 }).toArray();
+      res.send(result);
+    })
+
+
+
 
     // -------------------------------------------------------------------------------------
     // ---------------------------------------Courses---------------------------------------
     // -------------------------------------------------------------------------------------
 
+
     app.post('/courses', async (req, res) => {
       const result = await coursesCollection.insertOne(req.body);
       res.send(result);
     })
+
 
     app.get('/courses', async (req, res) => {
       const result = await coursesCollection.find().toArray();
@@ -333,6 +379,9 @@ async function run() {
     })
 
 
+
+    // -------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------
 
 
 
