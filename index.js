@@ -1,8 +1,9 @@
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const cors = require('cors');
 require('dotenv').config();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 const app = express();
 const stripe = require('stripe')('sk_test_51NXvYsKGf3MJO6wVvM5gqDtLJdRtJTLgBuVI6PtIJ6IjD8fgsvI88uwCmXWdLEnBavBmiKVFsmQm0k4nQRv8TYkz00RspGzlZP');
 
@@ -26,6 +27,36 @@ const client = new MongoClient(uri, {
 app.get('/', (req, res) => {
   res.send("Whatt ......... ????")
 })
+
+
+// ----------------------------------------------------------------
+// ---------------------Token Verification-------------------------
+// ----------------------------------------------------------------
+
+const verifyJWT = (req, res, next) => {
+  const authorization = req.headers.authorization;
+  console.log('verification from verifyjwt', authorization);
+  if(!authorization){
+    return res.status(401).send({ error: 'Unauthorized Access' })
+  }
+  
+  const token = authorization.split(' ')[1];
+  
+  jwt.verify(token, process.env.B7Students, ( error, decoded )=>{
+    if(error){
+      return res.status(403).send({ error: 'Unauthorized Access' })
+    }
+
+    if(decoded){
+      req.decoded = decoded;
+      next();           
+    }
+  })
+}
+
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 
 async function run() {
@@ -61,13 +92,26 @@ async function run() {
 
 
 
+    // -------------------------------------------------------------
+    // -----------------------------jwt-----------------------------
+    // -------------------------------------------------------------
+
+
+    app.post('/jwt', async(req, res) => {
+      const body = req.body;
+      const token = jwt.sign(body, process.env.B7Students, { expiresIn : '100h' });
+      res.send({token})
+    })
+
+
+
 
     // --------------------------------------------------------------
     // -------------------------class--------------------------------
     // --------------------------------------------------------------
 
     app.get('/class', async (req, res) => {
-      const result = await classesCollection.find().sort({ name : 1 }).toArray();
+      const result = await classesCollection.find().sort({ name: 1 }).toArray();
       res.send(result);
     })
 
@@ -88,9 +132,9 @@ async function run() {
     })
 
 
-    app.get('/myClass/:email', async(req, res)=>{
+    app.get('/myClass/:email', async (req, res) => {
       const email = req.params.email;
-      const query = { instructorEmail : email };
+      const query = { instructorEmail: email };
       const result = await classesCollection.find(query).toArray();
       res.send(result);
     })
@@ -129,10 +173,34 @@ async function run() {
     })
 
 
-    app.delete('/class/:id', async(req, res) => {
-      const id = req.params.id ;
-      const query = { _id : new ObjectId(id) };
-      const result = await classesCollection.deleteOne(query);
+    app.put("/class/remove/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const findTheItem = await classesCollection.findOne(query);
+      const body = req.body.it;
+
+      if (!findTheItem) {
+        return res.status(404).json({ error: 'Item not found' });
+      }
+   
+      body.availableSeats = parseFloat(body.availableSeats);
+      body.price = parseFloat(body.price);
+
+      const updateIt = {
+        $set: {
+          name: body.name,
+          image: body.image,
+          instructorEmail: body.instructorEmail,
+          instructorName: body.instructorName,
+          availableSeats: body.availableSeats,
+          price: body.price,
+          category: body.category,
+          status: "pending",
+          feedback: null
+        }
+      }
+      
+      const result = await classesCollection.updateOne(query, updateIt);
       res.send(result);
     })
 
@@ -169,8 +237,8 @@ async function run() {
       const query = { _id: new ObjectId(id) };
       const found = await classesCollection.findOne(query);
 
-      const update = { $set: { status: "denied", feedback : feed } };
-      
+      const update = { $set: { status: "denied", feedback: feed } };
+
       const result = await classesCollection.updateOne(query, update);
 
       if (result.modifiedCount === 1) {
@@ -188,7 +256,7 @@ async function run() {
     // --------------------------------------------------------------
 
 
-    app.get('/cart/:email', async (req, res) => {
+    app.get('/cart/:email', verifyJWT, async (req, res) => {
       const email = req.params.email;
       const query = { userEmail: email };
       const result = await cartCollection.find(query).toArray();
@@ -196,7 +264,7 @@ async function run() {
     })
 
 
-    app.get('/cart', async (req, res) => {
+    app.get('/cart', verifyJWT, async (req, res) => {
       const result = await cartCollection.find().toArray();
       res.send(result);
     })
@@ -223,7 +291,7 @@ async function run() {
     })
 
 
-    app.post('/cart/:userEmail', async (req, res) => {
+    app.post('/cart/:userEmail', verifyJWT, async (req, res) => {
       const userEmail = req.params.userEmail;
       const body = req.body;
       const productId = body?.ite?._id;
@@ -253,8 +321,15 @@ async function run() {
 
     app.post('/users', async (req, res) => {
       const body = req?.body?.user?.providerData[0];
-      const numbId = 1000000;
-      body.numbId = numbId + 1;
+      const email = body?.email;
+      const query = { email : email };
+      const findUser = await usersCollection.findOne(query);
+      console.log(findUser);
+
+      if(findUser){
+        return;
+      }
+      
       const result = await usersCollection.insertOne(body);
       res.send(result);
     })
