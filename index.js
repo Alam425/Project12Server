@@ -314,7 +314,7 @@ async function run() {
     // --------------------------------------------------------------
 
     app.get('/users', async (req, res) => {
-      const result = await usersCollection.find().toArray();
+      const result = await usersCollection.find().sort({ displayName: 1 }).toArray();
       res.send(result);
     })
 
